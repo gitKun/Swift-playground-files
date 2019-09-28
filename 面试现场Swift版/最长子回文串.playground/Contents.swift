@@ -3,15 +3,14 @@ import Foundation
 
 let string = "eabadabacss"
 let charS = string[string.index(string.startIndex, offsetBy: 3)]
-print(string.endIndex.encodedOffset)
-let indexChar = String.Index.init(encodedOffset: 3)
+//print(string.endIndex.encodedOffset)
+//let indexChar = String.Index.init(encodedOffset: 3)
+//print(string[indexChar])
+
+print(string.endIndex.utf16Offset(in: string))
+let indexChar = String.Index(utf16Offset: 3, in: string)
 print(string[indexChar])
 
-//extension String {
-//    func targetChar(_ index: Int) -> Character {
-//        let maxIndex = self.endIndex
-//    }
-//}
 
 
 func isPlalindrome(s: String) -> Bool {
@@ -50,8 +49,8 @@ func preHandleString(_ s: String) -> String {
 // 寻找最长回文子串
 func findLongestPlalindromeString(_ s: String) -> String{
     // 先预处理字符串
-//    let str = preHandleString(s)
-    let str = s
+    let str = preHandleString(s)
+//    let str = s
     // 处理后的字串长度
     let len = str.count
     // 右边界
@@ -107,18 +106,19 @@ func findLongestPlalindromeString(_ s: String) -> String{
     }
     // 去掉之前添加的 #
     var resultArr: [String] = []
-//    for i in stride(from: center - longestHalf + 1, through: center + longestHalf, by: 2){
-//        resultArr.append(String(str[str.index(startIndex, offsetBy: i)]))
-//    }
-    for i in stride(from: center - longestHalf, through: center + longestHalf, by: 1) {
+    for i in stride(from: center - longestHalf + 1, through: center + longestHalf, by: 2){
         resultArr.append(String(str[str.index(startIndex, offsetBy: i)]))
     }
+//    for i in stride(from: center - longestHalf, through: center + longestHalf, by: 1) {
+//        resultArr.append(String(str[str.index(startIndex, offsetBy: i)]))
+//    }
     return resultArr.joined();
 }
 
 let testStrArr = [
     "abcdcef",
     "adaelele",
+    "cabadaba",
     "cabadabae",
     "cabaddabae",
     "aaaabcdefgfedcbaa",
@@ -129,8 +129,8 @@ let testStrArr = [
 
 print("最长回文串: \(findLongestPlalindromeString("cabadabae"))")
 
-//for str in testStrArr {
-//    print("原字符串: \(str)")
-//    print("最长回文串: \(findLongestPlalindromeString(str))")
-//}
+for str in testStrArr {
+    print("原字符串: \(str)")
+    print("最长回文串: \(findLongestPlalindromeString(str))")
+}
 
